@@ -86,18 +86,3 @@ export const discussionReply = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch questions", error: err });
   }
 };
-
-// Mark question as resolved
-export const resolveQuestion = async (req, res) => {
-  try {
-    const question = await Question.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      { isResolved: true },
-      { new: true }
-    );
-    if (!question) return res.status(404).json({ message: "Question not found" });
-    res.json({ message: "Marked as resolved", question });
-  } catch (err) {
-    res.status(500).json({ message: "Failed to resolve question", error: err });
-  }
-};

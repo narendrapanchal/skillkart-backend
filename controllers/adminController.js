@@ -1,12 +1,9 @@
-import Resource from "../models/Resource.js";
-import Roadmap from "../models/Roadmap.js";
 import Skill from "../models/Skill.js";
 import Step from "../models/Step.js"; // Make sure path is correct
 
 export const createSkill = async (req, res) => {
   const { skill, userId } = req.body;
   try {
-    console.log("skills",skill, userId)
     const newSkill = await Skill.create({ skill, userId });
     res.status(201).json(newSkill);
   } catch (error) {
@@ -14,37 +11,6 @@ export const createSkill = async (req, res) => {
   }
 };
 
-export const uploadResource = async (req, res) => {
-  const { title, type, link, skill } = req.body;
-  try {
-    const newResource = await Resource.create({ title, type, link, skill });
-    res.status(201).json(newResource);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const createRoadmap = async (req, res) => {
-  const { title, skill, weeks } = req.body;
-  try {
-    console.log("title, skill")
-    const newRoadmap = await Roadmap.create({ title, skill, weeks });
-    res.status(201).json(newRoadmap);
-  } catch (error) {
-    console.log("error createRoadmap----",error)
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const getRoadmapByLearnerId = async (req, res) => {
-  const { skill } = req.params;
-  try {
-    const roadmap = await Roadmap.findOne({ skill }).populate("weeks.topics.resources");
-    res.status(200).json(roadmap);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-};
 
 export const addStep = async (req, res) => {
   const { title, type, link, time, skill } = req.body;
