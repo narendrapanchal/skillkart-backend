@@ -19,7 +19,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-    origin:"https://skillkart-frontend-mtzi.onrender.com/",
+    origin:"https://skillkart-frontend-mtzi.onrender.com",
     credentials: true,
 }));
 app.use(express.json());
