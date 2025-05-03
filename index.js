@@ -18,7 +18,10 @@ import { protect } from "./middlewares/authMiddleware.js";
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin:"https://skillkart-frontend-mtzi.onrender.com/",
+    credentials: true,
+}));
 app.use(express.json());
 
 // Routes
