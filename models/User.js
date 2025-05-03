@@ -35,10 +35,10 @@ const userSchema = new mongoose.Schema({
   },
 
   // Learner progress
-  badges: [{
+  badges: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Badge"
-  }],
+  },
 
   completedSteps: [{ type: mongoose.Schema.Types.ObjectId, ref: "Step" }],
 }, { timestamps: true, versionKey:false });

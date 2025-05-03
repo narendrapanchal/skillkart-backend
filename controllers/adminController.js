@@ -1,11 +1,22 @@
 import Skill from "../models/Skill.js";
 import Step from "../models/Step.js"; // Make sure path is correct
+import Badge from "../models/Badge.js"; // Make sure path is correct
 
 export const createSkill = async (req, res) => {
   const { skill, userId } = req.body;
   try {
     const newSkill = await Skill.create({ skill, userId });
     res.status(201).json(newSkill);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const addBadge = async (req, res) => {
+  const { xp, name, description, icon } = req.body;
+  try {
+    const newBadge = await Badge.create({ xp, name, description, icon });
+    res.status(201).json(newBadge);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
