@@ -39,10 +39,15 @@ export const login = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
-    const skill=await Skill.findById(user.interest);
+   
+    
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
     user={...user._doc,password:undefined};
-    res.status(200).json({ token, ...user, skillName:skill.skill });
+    if(user.role=="learner"){
+      const skill=await Skill.findById(user.interest);
+      user={...user, skillName:skill.skill};
+    }
+    res.status(200).json({ token, ...user });
   } catch (error) {
     console.log("error---",error)
     res.status(500).json({ message: "Server error" });
